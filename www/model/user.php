@@ -15,10 +15,15 @@ function get_user($db, $user_id){
       user_id = ?
     LIMIT 1
   ";
-  $stmt = $db->prepare($sql);
-  $stmt->bindvalue(1, $user_id, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  try{
+    $stmt = $db->prepare($sql);
+    $stmt->bindvalue(1, $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch();
+  }catch(PDOException $e){
+  set_error('データ取得に失敗しました。');
+  } 
+return false;
 }
 
 function get_user_by_name($db, $name){
@@ -34,10 +39,15 @@ function get_user_by_name($db, $name){
       name = ?
     LIMIT 1
   ";
-  $stmt = $db->prepare($sql);
-  $stmt->bindvalue(1, $name, PDO::PARAM_STR);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  try{
+    $stmt = $db->prepare($sql);
+    $stmt->bindvalue(1, $name, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch();
+  }catch(PDOException $e){
+    set_error('データ取得に失敗しました。');
+  }
+return false;
 }
 
 function login_as($db, $name, $password){
@@ -110,10 +120,14 @@ function insert_user($db, $name, $password){
       users(name, password)
     VALUES (?, ?);
   ";
+  try{
   $stmt = $db->prepare($sql);
   $stmt->bindvalue(1, $name, PDO::PARAM_STR);
   $stmt->bindvalue(2, $password, PDO::PARAM_STR);
   $stmt->execute();
-  $rows = $stmt->fetchAll();
+  }catch(PDOException $e){
+    set_error('追加に失敗しました。');
+  }
+  return false;
 }
 

@@ -18,11 +18,17 @@ function get_item($db, $item_id){
     WHERE
       item_id = ?
   ";
-  $stmt = $db->prepare($sql);
-  $stmt->bindvalue(1, $item_id, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  try{
+    $stmt = $db->prepare($sql);
+    $stmt->bindvalue(1, $item_id, PDO::PARAM_INT);
+    $stmt->execute();
+  return $stmt->fetchAll();
+  }catch(PDOException $e){
+    set_error('データ取得に失敗しました。');
+  }
+return false;
 }
+
 
 function get_items($db, $is_open = false){
   $sql = '
@@ -86,14 +92,18 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
       )
     VALUES(?, ?, ?, ?, ?);
   ";
+  try{
   $stmt = $db->prepare($sql);
   $stmt->bindvalue(1, $name, PDO::PARAM_STR);
   $stmt->bindvalue(2, $price, PDO::PARAM_INT);
   $stmt->bindvalue(3, $stock, PDO::PARAM_INT);
   $stmt->bindvalue(4, $filename, PDO::PARAM_STR);
   $stmt->bindvalue(5, $status, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  return $stmt->execute();
+  }catch(PDOException $e){
+    set_error('追加に失敗しました。');
+  }
+return false;
 }
 
 function update_item_status($db, $item_id, $status){
@@ -106,11 +116,15 @@ function update_item_status($db, $item_id, $status){
       item_id = ?
     LIMIT 1
   ";
+  try{
   $stmt = $db->prepare($sql);
   $stmt->bindvalue(1, $status, PDO::PARAM_INT);
   $stmt->bindvalue(2, $item_id, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  return $stmt->execute();
+  }catch(PDOException $e){
+    set_error('更新に失敗しました。');
+  }
+return false;
 }
 
 function update_item_stock($db, $item_id, $stock){
@@ -123,11 +137,15 @@ function update_item_stock($db, $item_id, $stock){
       item_id = ?
     LIMIT 1
   ";
+  try{
   $stmt = $db->prepare($sql);
   $stmt->bindvalue(1, $stock, PDO::PARAM_INT);
   $stmt->bindvalue(2, $item_id, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  return $stmt->execute();
+  }catch(PDOException $e){
+    set_error('更新に失敗しました。');
+  }
+return false;
 }
 
 function destroy_item($db, $item_id){
@@ -153,11 +171,16 @@ function delete_item($db, $item_id){
       item_id = ?
     LIMIT 1
   ";
-  $stmt = $db->prepare($sql);
-  $stmt->bindvalue(1, $item_id, PDO::PARAM_INT);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
+  try{
+    $stmt = $db->prepare($sql);
+    $stmt->bindvalue(1, $item_id, PDO::PARAM_INT);
+    return $stmt->execute();
+  }catch(PDOException $e){
+    set_error('削除に失敗しました。');
+  }
+return false;
 }
+
 
 // 非DB
 
