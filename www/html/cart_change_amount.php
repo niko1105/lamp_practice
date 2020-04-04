@@ -22,5 +22,5 @@ if(update_cart_amount($db, $cart_id, $amount)){
 } else {
   set_error('購入数の更新に失敗しました。');
 }
-
+is_valid_csrf_token($token);
 redirect_to(CART_URL);

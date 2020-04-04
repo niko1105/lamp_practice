@@ -31,5 +31,5 @@ if(regist_item($db, $name, $price, $stock, $status, $image)){
   set_error('商品の登録に失敗しました。');
 }
 
-
+is_valid_csrf_token($token);
 redirect_to(ADMIN_URL);

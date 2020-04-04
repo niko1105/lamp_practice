@@ -28,5 +28,5 @@ if(destroy_item($db, $item_id) === true){
 }
 
 
-
+is_valid_csrf_token($token);
 redirect_to(ADMIN_URL);

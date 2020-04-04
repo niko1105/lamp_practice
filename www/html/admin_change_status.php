@@ -31,5 +31,5 @@ if($changes_to === 'open'){
   set_error('不正なリクエストです。');
 }
 
-
+$token = is_valid_csrf_token('csrf_token');
 redirect_to(ADMIN_URL);

@@ -21,5 +21,5 @@ if(delete_cart($db, $cart_id)){
 } else {
   set_error('カートの削除に失敗しました。');
 }
-
+is_valid_csrf_token($token);
 redirect_to(CART_URL);
