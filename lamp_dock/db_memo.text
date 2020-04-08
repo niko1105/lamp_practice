@@ -1,0 +1,16 @@
+orders
+    order_id
+    user_id
+    created
+    updated
+
+order_details
+    order_detail_id
+    order_id
+    item_id
+    price
+    amount
+    created
+    updated
+
+    

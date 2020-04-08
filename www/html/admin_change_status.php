@@ -20,6 +20,12 @@ if(is_admin($user) === false){
 
 $item_id = get_post('item_id');
 $changes_to = get_post('changes_to');
+$token = get_post('csrf_token');
+
+if(is_valid_csrf_token($token) === FALSE ){
+  set_error('不正なリクエストです。');
+  redirect_to(ADMIN_URL);
+}
 
 if($changes_to === 'open'){
   update_item_status($db, $item_id, ITEM_STATUS_OPEN);
@@ -31,5 +37,4 @@ if($changes_to === 'open'){
   set_error('不正なリクエストです。');
 }
 
-$token = is_valid_csrf_token('csrf_token');
 redirect_to(ADMIN_URL);
