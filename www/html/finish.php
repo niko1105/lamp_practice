@@ -13,8 +13,13 @@ if(is_logined() === false){
 
 $db = get_db_connect();
 $user = get_login_user($db);
-
 $carts = get_user_carts($db, $user['user_id']);
+$token = get_post('csrf_token');
+
+if(is_valid_csrf_token($token) === FALSE ){
+  set_error('不正なリクエストです。');
+  redirect_to(CART_URL);
+}
 
 if(purchase_carts($db, $carts) === false){
   set_error('商品が購入できませんでした。');
@@ -22,5 +27,4 @@ if(purchase_carts($db, $carts) === false){
 } 
 
 $total_price = sum_carts($carts);
-
 include_once '../view/finish_view.php';

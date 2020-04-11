@@ -54,10 +54,10 @@ function get_user_cart($db, $user_id, $item_id){
     ':user_id' => $user_id,
     ':item_id' => $item_id
   );
-  return fetch_all_query($db, $sql, $params);
+  return fetch_query($db, $sql, $params);
 }
 
-function add_cart($db, $user_id, $item_id ) {
+function add_cart($db, $user_id, $item_id) {
   $cart = get_user_cart($db, $user_id, $item_id);
   if($cart === false){
     return insert_cart($db, $user_id, $item_id);
