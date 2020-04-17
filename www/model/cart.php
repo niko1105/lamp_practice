@@ -1,6 +1,8 @@
 <?php 
 require_once MODEL_PATH . 'functions.php';
 require_once MODEL_PATH . 'db.php';
+require_once MODEL_PATH . 'order.php';
+require_once MODEL_PATH . 'order_detail.php';
 
 function get_user_carts($db, $user_id){
   $sql = "
@@ -113,17 +115,28 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+  $db->begintransaction();
   foreach($carts as $cart){
     if(update_item_stock(
-        $db, 
-        $cart['item_id'], 
-        $cart['stock'] - $cart['amount']
+      $db, 
+      $cart['item_id'], 
+      $cart['stock'] - $cart['amount']
       ) === false){
       set_error($cart['name'] . 'の購入に失敗しました。');
     }
   }
-  
   delete_user_carts($db, $carts[0]['user_id']);
+  insert_order($db, $carts[0]['user_id']);
+  $order_id = $db->lastinsertId();
+  foreach($carts as $cart){
+    insert_order_datail($db, $order_id, $cart['item_id'], $cart['price'], $cart['amount']);
+  }
+  if(has_error() === TRUE){
+    $db->rollback();
+    return false;
+  }
+  $db->commit();
+  return true;
 }
 
 function delete_user_carts($db, $user_id){
@@ -145,7 +158,7 @@ function sum_carts($carts){
   }
   return $total_price;
 }
-
+// 購入商品の確認
 function validate_cart_purchase($carts){
   if(count($carts) === 0){
     set_error('カートに商品が入っていません。');

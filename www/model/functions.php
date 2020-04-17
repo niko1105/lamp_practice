@@ -1,51 +1,51 @@
 <?php
-
+// vardump
 function dd($var){
   var_dump($var);
   exit();
 }
-
+// 指定したURLへ遷移する
 function redirect_to($url){
   header('Location: ' . $url);
   exit;
 }
-
+// HTTPGETメソッドで送信された値がセットされていればGET変数を返す。そうでなければ空文字を返す。
 function get_get($name){
   if(isset($_GET[$name]) === true){
     return $_GET[$name];
   };
   return '';
 }
-
+// HTTP POSTメソッドで送信された値がセットされていればPOST変数を返す。そうでなければ空文字を返す。
 function get_post($name){
   if(isset($_POST[$name]) === true){
     return $_POST[$name];
   };
   return '';
 }
-
+// HTTP POST メソッドでアップロードされたファイルの値がセットされていればファイルアップロード関数を返す。そうでなければ空配列を返す。
 function get_file($name){
   if(isset($_FILES[$name]) === true){
     return $_FILES[$name];
   };
   return array();
 }
-
+// セッション変数に値がセットされているか確認
 function get_session($name){
   if(isset($_SESSION[$name]) === true){
     return $_SESSION[$name];
   };
   return '';
 }
-
+// 値をセッション変数へ代入（セット）
 function set_session($name, $value){
   $_SESSION[$name] = $value;
 }
-
+// 値をセッション変数（エラー）へ代入（セット）
 function set_error($error){
   $_SESSION['__errors'][] = $error;
 }
-
+// セッション変数にエラーの値を設定
 function get_errors(){
   $errors = get_session('__errors');
   if($errors === ''){
@@ -54,11 +54,11 @@ function get_errors(){
   set_session('__errors',  array());
   return $errors;
 }
-
+// セッション変数にエラーの値がセットされており、回数が０では無い
 function has_error(){
   return isset($_SESSION['__errors']) && count($_SESSION['__errors']) !== 0;
 }
-
+// セッション変数（メッセージ）を$messageへ代入
 function set_message($message){
   $_SESSION['__messages'][] = $message;
 }
