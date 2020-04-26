@@ -21,10 +21,12 @@ if(is_valid_csrf_token($token) === FALSE ){
   redirect_to(CART_URL);
 }
 
+
 if(purchase_carts($db, $carts) === false){
   set_error('商品が購入できませんでした。');
   redirect_to(CART_URL);
 } 
 
 $total_price = sum_carts($carts);
+
 include_once '../view/finish_view.php';
