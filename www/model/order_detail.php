@@ -23,7 +23,7 @@ function get_order_details($db, $order_id){
                   items.name,
                   order_details.price,
                   order_details.amount,
-                  order_details.price * order_details.amount as total_price
+                  order_details.price * order_details.amount as subtotal
             FROM
                   order_details
             JOIN
@@ -38,9 +38,10 @@ function get_order_details($db, $order_id){
       return fetch_all_query($db, $sql, $params);
 }
 
-function select_order($db, $order_id){
+function get_user_order($db, $order_id){
       $sql = "
             SELECT
+                  orders.user_id,
                   orders.order_id,
                   orders.created,
                   SUM(order_details.price * order_details.amount) as total_price

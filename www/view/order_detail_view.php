@@ -42,7 +42,7 @@
             <td><?php print h($order_detail['name']);?></td>
             <td><?php print h(number_format($order_detail['price'])); ?>円</td>
             <td><?php print h($order_detail['amount']); ?></td>
-            <td><?php print h(number_format($order_detail['total_price'])); ?>円</td>
+            <td><?php print h(number_format($order_detail['subtotal'])); ?>円</td>
           </tr>
           <?php } ?>
         </tbody>

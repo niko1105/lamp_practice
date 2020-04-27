@@ -29,10 +29,9 @@
             <td><?php print h($order['created']); ?></td>
             <td><?php print h(number_format($order['total_price'])); ?>円</td>
             <td>
-              <form action="order_detail.php" method="post">
+              <form action="order_detail.php" method="get">
                 <input type="submit" value="購入明細表示" class="btn btn-primary btn-block">
                 <input type="hidden" name="order_id" value="<?php print h($order['order_id']);?>">
-                <input type="hidden" name="csrf_token" value="<?php print h($token); ?>" >
               </form>
             </td>
           </tr>
