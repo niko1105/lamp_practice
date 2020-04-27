@@ -14,14 +14,13 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 $order_id = get_get('order_id');
-$order = get_user_order($db,$order_id);
+$order = get_order($db,$order_id);
 
-if($user['user_id'] === $order['user_id']){
-  $order_details = get_order_details($db, $order_id);
-}else{
+if($user['user_id'] !== $order['user_id']){
   set_error('不正なアクセスです');
   redirect_to(ORDER_URL);
 }
+$order_details = get_order_details($db, $order_id);
 
 
 include_once VIEW_PATH . 'order_detail_view.php';

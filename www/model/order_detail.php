@@ -38,7 +38,7 @@ function get_order_details($db, $order_id){
       return fetch_all_query($db, $sql, $params);
 }
 
-function get_user_order($db, $order_id){
+function get_order($db, $order_id){
       $sql = "
             SELECT
                   orders.user_id,
