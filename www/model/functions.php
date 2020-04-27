@@ -54,7 +54,7 @@ function get_errors(){
   set_session('__errors',  array());
   return $errors;
 }
-// セッション変数にエラーの値がセットされており、回数が０では無い
+// セッション変数にエラーの値がセットされており、エラー個数が0では無い
 function has_error(){
   return isset($_SESSION['__errors']) && count($_SESSION['__errors']) !== 0;
 }
