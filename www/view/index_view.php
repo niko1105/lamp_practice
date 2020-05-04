@@ -18,7 +18,7 @@
       <option value="low_price" <?php if($sort === 'low_price'){print 'selected';} ?>>価格の安い順</option>
       <option value="high_price" <?php if($sort === 'high_price'){print 'selected';} ?>>価格の高い順</option>
     </select>
-    <input type="submit" name="sort_button" value="並び替え">
+    <input type="submit" value="並び替え">
     </form>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 

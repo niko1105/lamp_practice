@@ -31,7 +31,8 @@ function get_items($db, $is_open = false, $sort = 'new'){
       stock,
       price,
       image,
-      status
+      status,
+      created
     FROM
       items
   ';
@@ -49,7 +50,7 @@ function get_items($db, $is_open = false, $sort = 'new'){
   ';} 
   else{
     $sql .= '
-      ORDER BY item_id DESC
+      ORDER BY created DESC
   ';}  
  
   return fetch_all_query($db, $sql);
