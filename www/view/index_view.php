@@ -12,18 +12,16 @@
 
   <div class="container">
     <h1>商品一覧</h1>
+    <form method="get" action="index.php">
+    <select name="sort">
+      <option value="new" <?php if($sort === 'new'){print 'selected';} ?>>新着順</option>
+      <option value="low_price" <?php if($sort === 'low_price'){print 'selected';} ?>>価格の安い順</option>
+      <option value="high_price" <?php if($sort === 'high_price'){print 'selected';} ?>>価格の高い順</option>
+    </select>
+    <input type="submit" value="並び替え">
+    </form>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
-    <div class="sort">
-      <form method="get" action="sort_result.php">
-       <select name="sort_order">
-          <option selected value="new">新着順</option>
-          <option value="low_price">価格の安い順</option>
-          <option value="high_price">価格の高い順</option>
-       </select>
-       <input type="submit" value="並び替え">
-      </form>
-    </div>
     <div class="card-deck">
       <div class="row">
       <?php foreach($items as $item){ ?>

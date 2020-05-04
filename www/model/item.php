@@ -23,7 +23,7 @@ function get_item($db, $item_id){
 }
 
 
-function get_items($db, $is_open = false){
+function get_items($db, $is_open = false, $sort = 'new'){
   $sql = '
     SELECT
       item_id, 
@@ -31,18 +31,31 @@ function get_items($db, $is_open = false){
       stock,
       price,
       image,
-      status
+      status,
+      created
     FROM
       items
   ';
   if($is_open === true){
     $sql .= '
       WHERE status = 1
-    ';
-  }
-
+    ';}
+  if($sort === 'low_price'){
+    $sql .= '
+      ORDER BY price ASC
+  ';}  
+  elseif($sort === 'high_price'){
+    $sql .= '
+      ORDER BY price DESC
+  ';} 
+  else{
+    $sql .= '
+      ORDER BY created DESC
+  ';}  
+ 
   return fetch_all_query($db, $sql);
 }
+
 
 function get_all_items($db){
   return get_items($db);

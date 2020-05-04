@@ -13,3 +13,16 @@ order_details
     created
     updated
 
+
+SELECT
+			item_id,
+         SUM(amount) as total_amount
+FROM
+			order_details
+GROUP BY
+			item_id
+ORDER BY
+			total_amount DESC
+LIMIT
+		0,3
+			

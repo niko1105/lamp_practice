@@ -6,7 +6,7 @@ function dd($var){
 }
 // 指定したURLへ遷移する
 function redirect_to($url){
-  header('Location: ' . $url);
+  header('Location:' . $url);
   exit;
 }
 // HTTPGETメソッドで送信された値がセットされていればGET変数を返す。そうでなければ空文字を返す。
