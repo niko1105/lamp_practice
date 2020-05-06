@@ -16,7 +16,7 @@ $user = get_login_user($db);
 $order_id = get_get('order_id');
 $order = get_order($db,$order_id);
 
-if($user['user_id'] !== $order['user_id']){
+if($user['user_id'] !== $order['user_id'] && is_admin($user) === false){
   set_error('不正なアクセスです');
   redirect_to(ORDER_URL);
 }
