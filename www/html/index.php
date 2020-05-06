@@ -3,6 +3,7 @@ require_once '../conf/const.php';
 require_once '../model/functions.php';
 require_once '../model/user.php';
 require_once '../model/item.php';
+require_once '../model/order_detail.php';
 
 session_start();
 
@@ -10,10 +11,12 @@ if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
 
+
 $db = get_db_connect();
 $user = get_login_user($db);
 $sort = get_get('sort');
 $items = get_items($db, false, $sort);
+$ranks = get_ranks($db);
 
 $token = get_csrf_token();
 

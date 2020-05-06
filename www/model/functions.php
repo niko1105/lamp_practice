@@ -99,10 +99,7 @@ function delete_image($filename){
     return true;
   }
   return false;
-  
 }
-
-
 
 function is_valid_length($string, $minimum_length, $maximum_length = PHP_INT_MAX){
   $length = mb_strlen($string);

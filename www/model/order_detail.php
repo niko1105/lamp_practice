@@ -60,3 +60,28 @@ function get_order($db, $order_id){
       return fetch_query($db, $sql, $params);
 
 }
+
+function get_ranks($db){
+      $sql = "
+            SELECT
+                  items.item_id,
+                  items.name,
+                  items.image,
+                  items.price,    
+                  items.stock,  
+                  SUM(amount) as total_amount
+            FROM
+                  order_details
+            JOIN
+                  items
+            ON
+                  items.item_id = order_details.item_id
+            GROUP BY
+                  item_id
+            ORDER BY
+                  total_amount DESC
+            LIMIT
+                  0,3
+            ";
+      return fetch_all_query($db, $sql);
+}
